@@ -1,0 +1,128 @@
+create database example2; 
+use example2; 
+show tables; 
+create table employee( 
+employee_name varchar(50) primary key, 
+street varchar(50), 
+city varchar(50) 
+); 
+# (a) 
+insert into employee values 
+('Arif', '51 upashahar', 'Rajshahi'), 
+('Sumon', '52 east', 'Moynamati'), 
+('Sagor', 'Neemgachhi', 'Sirajgong'), 
+('Abdul','Binodpur', 'Rajshahi'), 
+('Himesh', 'Nazrul avenue', 'Dhaka'), 
+('Amirul', 'Chawk bazar', 'Sylhet'), 
+('Sajib', '99 north', 'Chittagong'); 
+select * from employee; 
+create table works( 
+employee_name varchar(50) primary key, 
+company_name varchar(50),salary int 
+); 
+insert into works values 
+('sumon','agrani',12000), 
+('abdul','sonali',13000), 
+('himesh','agrani',6000), 
+('amirul','sonali',20000), 
+('sagor','sonali',8000), 
+('arif','janata',13000), 
+('sajib','janata',9000); 
+select * from works; 
+truncate table works; 
+#  (b) 
+select employee_name 
+from employee 
+where city = 'Rajshahi';
+# (c) 
+select employee_name, street 
+from employee 
+where city = 'Rajshahi'; 
+# (d)  
+select employee_name 
+from works 
+where company_name='Sonali'; 
+select employee_name 
+from works 
+where company_name='Agrani'; 
+select employee_name 
+from works 
+where company_name='Janata'; 
+# (e) 
+select employee_name,salary 
+from works 
+where company_name = 'Sonali'; 
+select employee_name,salary 
+from works 
+where company_name = 'Agrani'; 
+select employee_name,salary 
+from works where company_name = 'Janata'; 
+# (f) 
+select employee_name 
+from works 
+where salary = 12000; 
+select employee_name 
+from works 
+where salary >= 12000; 
+select employee_name 
+from works 
+where salary < 12000; 
+# (g) 
+select employee_name, company_name 
+from works 
+where salary = 12000; 
+select employee_name, company_name 
+from works 
+where salary >= 12000;select employee_name, company_name 
+from works 
+where salary < 12000; 
+# (h) 
+select employee.employee_name, street, city 
+from employee 
+natural join works 
+where company_name = 'Agrani'; 
+select e.employee_name,street, city 
+from employee e, works w 
+where e.employee_name = w.employee_name and w.company_name = 'Agrani' ; 
+# (i) 
+select e.employee_name, e.street, e.city 
+from employee e 
+natural join works w 
+where w.salary >= 10000; 
+# (j) 
+select e.employee_name, w.company_name, w.salary 
+from employee enatural join works w 
+where e.city = 'Rajshahi'; 
+# (k) 
+select e.employee_name, e.street, e.city, w.company_name 
+from employee e 
+natural join works w 
+where w.salary >= 10000; 
+# (l) 
+select e.employee_name, e.street, e.city 
+from employee e 
+natural join works w 
+where w.company_name = 'Sonali' and w.salary > 12000; 
+# (m) 
+select employee_name 
+from works 
+where company_name != 'Sonali'; 
+# (n) 
+update employee 
+set city = 'Natore' 
+where employee_name = 'Arif'; 
+select * from employee; 
+# (o) 
+SET SQL_SAFE_UPDATES = 0; 
+update works 
+set salary = salary * 1.1 
+where company_name = 'Agrani'; 
+SET SQL_SAFE_UPDATES = 1; 
+select * from works; 
+# (p) 
+delete from employee 
+where employee_name = 'Sagor'; 
+select * from employee; 
+# (q) 
+alter table works 
+add column manager varchar(50);
