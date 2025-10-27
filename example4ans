@@ -1,0 +1,147 @@
+# (a) 
+create database example4; 
+use example4; 
+create table employee( 
+employee_name varchar(50) primary key, 
+street varchar(50), 
+city varchar(50) 
+); 
+insert into employee values 
+('arif','51 upashahar','rajshahi'), 
+('sumon','52 east','moynamati'), 
+('sagor','neemgachhi','sirajgong'), 
+('abdul','binodpur','rajshahi'), 
+('himesh','nazrul avenue','dhaka'),('amirul','chawk bazar','sylhet'), 
+('sajib','99 north','chittagong'); 
+select * from employee; 
+create table works( 
+employee_name varchar(50) primary key, 
+company_name varchar(50), 
+salary int 
+); 
+insert into works values 
+('sumon','agrani',12000), 
+('abdul','sonali',13000), 
+('himesh','agrani',6000), 
+('amirul','sonali',20000), 
+('sagor','sonali',8000), 
+('arif','janata',13000), 
+('sajib','janata',9000); 
+select * from works; 
+truncate table works; 
+create table company(company_name varchar(30),city varchar(30)); 
+insert into company values 
+('agrani','rajshahi'), 
+('sonali','sylhet'), 
+('janata','dhaka'); 
+create table manages(employee_name varchar(30),manager_name varchar(30)); 
+insert into manages values 
+('amirul','amirul'), 
+('abdul','amirul'), 
+('sagor','amirul'), 
+('sumon','sumon'), 
+('himesh','sumon'), 
+('arif','arif'), 
+('sajib','arif'); 
+select * from manages; 
+# (b) 
+select employee_name 
+from works 
+where company_name = "Sonali"; 
+# (c) 
+select e.employee_name, street, city 
+from employee e 
+natural join works 
+where company_name = 'agrani'; 
+# (d) 
+select e.employee_name, street, city 
+from employee e 
+natural join works w 
+where w.company_name = 'sonali' and salary*12 > 120000; 
+# (e) 
+select e.employee_name 
+from employee e 
+natural join works w 
+natural join company c 
+where e.city = c.city; 
+# (f) 
+select distinct e.employee_name 
+from employee e 
+natural join manages m 
+join employee mn on m.manager_name = mn.employee_namewhere e.city = mn.city and 
+e.street = mn.street; 
+# (g) 
+select employee_name 
+from works 
+where company_name != 'Sonali'; 
+# (h) 
+select employee_name 
+from works 
+where salary > (select max(salary) from works where company_name = 'Janata'); 
+select w1.employee_name 
+from works w1 
+where w1.salary > all (select w2.salary from works w2 where 
+w2.company_name = 'Janata'); 
+# (i) 
+select w.employee_name 
+from works w 
+where w.salary > (select avg(salary) from works w2 where w.company_name = 
+w2.company_name); 
+# (j) 
+select company_name 
+from works group by company_name 
+order by count(employee_name) desc 
+limit 1; 
+# (k) 
+select company_name 
+from works 
+group by company_name 
+order by sum(salary) ASC 
+limit 1; 
+# (l) 
+select company_name 
+from works 
+group by company_name 
+having avg(salary) > (select avg(salary) from works where company_name = 
+'agrani'); 
+# (m) 
+set sql_safe_updates = 0; 
+update employee 
+set city = 'natore' 
+where employee_name = "arif";set sql_safe_updates=1; 
+# (n) 
+set sql_safe_updates=0; 
+update works 
+set salary = salary * 1.10 
+where company_name = 'agrani'; 
+set sql_safe_updates = 1; 
+select * from works; 
+# (o) 
+update works 
+set salary = salary * 1.10 
+where employee_name in ( 
+select manager_name 
+from manages m 
+join employee e on m.manager_name = e.employee_name 
+where company_name = 'agrani' 
+); 
+# (p) 
+update works 
+set salary = case 
+when salary * 1.10 <= 19000 then salary * 
+1.10 
+else salary * 1.03 
+end 
+where employee_name in ( 
+select manager_name 
+from manages 
+); 
+# (q) 
+delete from works 
+where company_name = 'Janata'; 
+# (r) 
+create view managerAverageSalary as 
+select m.manager_name, avg(w.salary) as avg_salary 
+from manages m 
+join works w on m.employee_name = w.employee_name 
+group by m.manager_name;select * from managerAverageSalary;
