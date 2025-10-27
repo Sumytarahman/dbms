@@ -1,0 +1,16 @@
+a)Find the names of all employees who live in Rajshahi city
+b)Find the names and streets address of all employees who live in Rajshahi city
+c)Find the names of all employees who work for (i) Sonali (ii) Agrani (iii) Janata
+d)Find the names and salary of all employees who work for (i) Sonali (ii) Agrani (iii) Janata
+e)Find the names of all employees whose salary is (i) 12000 (ii) >=12000 (iii) <12000
+f)Find the names and company of all employees whose salary is (i) 12000 (ii) >=12000 (iii) <12000
+g)Find the names, streets and cities of all employees who work for Agrani.
+h)Find the names, streets and cities of all employees who earn >=10000.
+i)Find the names, company and salary of all employees who live in Rajshahi city.
+j)Find the names, streets, cities and companies of all employees who earn >=10000.
+k)Find the names, streets and cities of all employees who work for Sonali and earn more than 12000.
+l)Find all employees in the database who do not work for Sonali Bank.
+m)Modify the database so that “Arif” now lives in Natore.
+n)Give all employees of “Agrani” Bank 10 percent salary raise.
+o)Delete all records for sagor in employee table.
+p)Add a column manager in the company table.
