@@ -1,0 +1,134 @@
+# (a) 
+create database example3; 
+use example3; 
+create table person( 
+nid int, 
+name varchar(50), 
+address varchar(50) 
+); 
+insert into person values 
+(123451, 'Arif', 'Rajshahi'), 
+(123452, 'Sumon', 'Moynamati'), 
+(123453, 'Sagor', 'Sirajgang'), 
+(123454, 'Abdul', 'Rajshahi'), 
+(123455, 'Himesh', 'Dhaka'), 
+(123456, 'Amirul', 'Sylhet'), 
+(123457, 'Sajib', 'Chittagang'); 
+select * from person; 
+create table car( 
+license varchar(50), 
+year year, 
+model varchar(50) 
+); 
+insert into car values 
+('12-3000', 2012, 'Axio'), 
+('11-3000', 2008, 'Corolla'), 
+('12-4000', 2013, 'Axio'), 
+('12-5000', 2013, 'Premio'), 
+('11-5000', 2010, 'Nano'), 
+('11-6000', 2011, 'Alto'), 
+('12-6000', 2015, 'Nano Twist'); 
+select * from car; 
+create table accident( 
+date date, 
+driver varchar(50),damage_amount int 
+); 
+insert into accident values 
+('2013-01-12', 'Arif', 10000), 
+('2015-09-25', 'Komol', 12000), 
+('2014-06-20', 'Bahadur', 11000), 
+('2011-12-20', 'Abdul', 8000), 
+('2015-09-19', 'Akter', 7000), 
+('2013-05-15', 'Arif', 20000), 
+('2014-08-20', 'Arif', 15000); 
+create table owns( 
+nid int, 
+license varchar(50) 
+); 
+INSERT INTO owns VALUES 
+(123451, '11-3000'), 
+(123452, '12-4000'), 
+(123453, '12-5000'), 
+(123454, '11-5000'), 
+(123455, '11-6000'), 
+(123456, '12-6000'), 
+(123457, '12-3000');create table log( 
+license varchar(50), 
+date date, 
+driver varchar(50), 
+primary key(license,date,driver) 
+); 
+INSERT INTO log VALUES 
+('11-3000', '2013-12-01', 'Arif'), 
+('12-4000', '2015-09-25', 'Komol'), 
+('11-6000', '2014-06-20', 'Bahadur'), 
+('11-5000', '2011-12-20', 'Abdul'), 
+('12-6000', '2015-09-19', 'Akter'), 
+('11-3000', '2013-05-15', 'Arif'), 
+('11-3000', '2014-08-20', 'Arif'); 
+# (b) 
+select name 
+from person 
+where address = 'Rajshahi'; 
+# (c) 
+select model from car 
+where year = 2013; 
+# (d) 
+select distinct driver 
+from accident 
+where damage_amount >= 10000 and damage_amount <= 15000; 
+# (e) 
+select nid 
+from owns 
+natural join car 
+where model = 'Axio'; 
+SELECT p.nid 
+FROM person p 
+JOIN owns o ON p.nid = o.nid 
+JOIN car c ON o.license = c.license 
+WHERE c.model = 'Axio'; 
+# (f) 
+select name, address 
+from person 
+natural join owns natural join car 
+where model = "Alto"; 
+# (g) 
+select driver 
+from accident 
+where date = '2011-12-20'; 
+# (h) 
+select name 
+from person 
+where nid = (select nid from owns where license = '12-4000'); 
+select name 
+from person 
+natural join owns 
+where license = '12-4000'; 
+# (i) 
+select name 
+from person 
+natural join owns 
+natural join log 
+where driver = 'Arif'; 
+# (j) 
+select model 
+from car 
+join log on car.license = log.license 
+join accident on log.driver = accident.driver 
+where accident.date = '2015-09-19'; 
+# (k) 
+select count(driver) 
+from accident 
+where driver = 'Arif'; 
+# (l) 
+select date 
+from accident 
+where driver = 'Arif'; 
+# (m) 
+set sql_safe_updates = 0; 
+update person 
+set address = 'Natore'where name = "Arif"; 
+set sql_safe_updates = 1; 
+select * 
+from person 
+where name = 'Arif'; 
