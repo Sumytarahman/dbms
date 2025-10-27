@@ -1,0 +1,12 @@
+a)Find the names of all person who live in Rajshahi.
+b)Which model was sold in 2013?
+c)Find the name of those driver where damage amount is between 10000 and 15000.
+d)Find the national id (nid) of those person who has Axio.
+e)Find the name and address of those person who has Alto. 
+f)Who (driver) was involved in the accident by 20/12/2011?
+g)Who was the owner of the car with license 12-4000?
+h)Who was the owner of the car whose driver is Arif?
+i)Which car was involved in accident by 19/09/2015?
+j)Find the number of accidents in which the cars belonging to “Arif” were involved.
+k)Find the dates of accidents in which the cars belonging to “Arif” were involved.
+l)Modify the database so that “Arif” now lives in Nato
